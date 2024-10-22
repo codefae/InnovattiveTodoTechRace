@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:InnovativeToDo.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="InnovativeToDo.Avalonia.Views.ToDoView"
+             x:DataType="vm:ToDoViewModel">
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding ToDoList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10"
+                            BorderBrush="Snow"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Margin="10">
+                        <StackPanel Spacing="5">
+
+                            <TextBlock Text="{Binding Title}"
+                                       FontSize="50"
+                                       Margin="5"/>
+                            <TextBlock Text="{Binding Description}"
+                                       FontSize="30"
+                                       Margin="5"/>
+                            <TextBlock Text="{Binding UpdatedAt}"></TextBlock>
+                            
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="5">
+                                <TextBlock HorizontalAlignment="Center"
+                                           Margin="5 10 5 5 ">Done</TextBlock>
+                                <CheckBox IsChecked="{Binding IsDone}"
+                                          Command="{Binding $parent[UserControl].((vm:ToDoViewModel)DataContext).MarkToDoAsDoneCommand}"
+                                          CommandParameter="{Binding Id}"
+                                          HorizontalAlignment="Center"></CheckBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>

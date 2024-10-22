@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:InnovativeToDo.Avalonia.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="InnovativeToDo.Avalonia.Views.AddToDoView"
+             x:DataType="vm:AddToDoViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:AddToDoViewModel/>
+    </Design.DataContext>
+   <ScrollViewer>
+    <StackPanel Margin="20">
+        <TextBlock>Title</TextBlock>
+        <TextBox Text="{Binding NewTitle}" Margin="0,0,0,10"/>
+        <TextBlock>Description</TextBlock>
+        <TextBox Text="{Binding NewDescription}" Margin="0,0,0,10"/>
+        <Button Command="{Binding AddToDoButtonClickCommand}" 
+                CornerRadius="10"
+                Content="Add ToDo" HorizontalAlignment="Left"/>
+        <TextBlock>Description</TextBlock>
+        <CalendarDatePicker Text="{Binding ToDoDate}" />
+
+        <ItemsControl ItemsSource="{Binding ToDoList}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="10"
+                            BorderBrush="Snow"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Margin="10">
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Spacing="5"
+                                        Grid.Column="0"
+                                        Margin="10">
+                        
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="50"
+                                           Margin="5"/>
+                                <TextBlock Text="{Binding Description}"
+                                           FontSize="30"
+                                           Margin="5"/>
+                                <TextBlock Text="{Binding UpdatedAt}"></TextBlock>
+                             
+                                
+                            </StackPanel>
+                            <Button Grid.Column="1" Command="{Binding $parent[UserControl].((vm:AddToDoViewModel)DataContext).DeleteToDoCommand}"
+                                    CommandParameter="{Binding Id}"
+                                    HorizontalAlignment="Center"
+                                    Height="50"
+                                    Width="100"
+                                    CornerRadius="10">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">Delete</TextBlock>
+                            </Button>
+                        </Grid>
+                        
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+   </ScrollViewer>
+</UserControl>
